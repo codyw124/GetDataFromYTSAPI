@@ -20,6 +20,9 @@ public class Application {
         RestTemplate rt = new RestTemplate();
         YTSResponse result = rt.exchange("https://yts.lt/api/v2/list_movies.json", HttpMethod.GET, entity, YTSResponse.class).getBody();
 
+        for(Movie x : result.getData().getMovies()){
+            x.save();
+        }
         log.info(result.toString());
     }
 

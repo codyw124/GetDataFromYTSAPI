@@ -4,12 +4,21 @@ package hello;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
@@ -40,9 +49,17 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "date_uploaded",
     "date_uploaded_unix"
 })
+@Entity
 public class Movie {
 
+
+    @Autowired
+    @JsonIgnore
+    MovieRepository mr;
+
     @JsonProperty("id")
+    @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
     private Integer id;
     @JsonProperty("url")
     private String url;
@@ -365,6 +382,10 @@ public class Movie {
     @JsonAnySetter
     public void setAdditionalProperty(String name, Object value) {
         this.additionalProperties.put(name, value);
+    }
+
+    public void save(){
+        mr.save(this);
     }
 
 }
