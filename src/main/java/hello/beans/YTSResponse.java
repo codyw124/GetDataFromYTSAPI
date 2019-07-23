@@ -1,8 +1,11 @@
 
-package hello;
+package hello.beans;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.persistence.Transient;
+
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -20,14 +23,18 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 public class YTSResponse {
 
     @JsonProperty("status")
+    @Transient
     private String status;
     @JsonProperty("status_message")
+    @Transient
     private String statusMessage;
     @JsonProperty("data")
     private PageData data;
     @JsonProperty("@meta")
+    @Transient
     private Meta meta;
     @JsonIgnore
+    @Transient
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     @JsonProperty("status")

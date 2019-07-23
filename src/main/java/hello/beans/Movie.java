@@ -1,5 +1,5 @@
 
-package hello;
+package hello.beans;
 
 import java.util.HashMap;
 import java.util.List;
@@ -9,6 +9,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
@@ -16,8 +18,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-
-import org.springframework.beans.factory.annotation.Autowired;
 
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -52,18 +52,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 @Entity
 public class Movie {
 
-
-    @Autowired
-    @JsonIgnore
-    MovieRepository mr;
-
     @JsonProperty("id")
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Integer id;
     @JsonProperty("url")
+    @Transient
     private String url;
     @JsonProperty("imdb_code")
+    @Transient
     private String imdbCode;
     @JsonProperty("title")
     private String title;
@@ -80,12 +77,16 @@ public class Movie {
     @JsonProperty("runtime")
     private Integer runtime;
     @JsonProperty("genres")
+    @Transient
     private List<String> genres = null;
     @JsonProperty("summary")
+    @Transient
     private String summary;
     @JsonProperty("description_full")
+    @Transient
     private String descriptionFull;
     @JsonProperty("synopsis")
+    @Transient
     private String synopsis;
     @JsonProperty("yt_trailer_code")
     private String ytTrailerCode;
@@ -106,12 +107,14 @@ public class Movie {
     @JsonProperty("state")
     private String state;
     @JsonProperty("torrents")
+    @OneToMany(mappedBy="movie")
     private List<Torrent> torrents = null;
     @JsonProperty("date_uploaded")
     private String dateUploaded;
     @JsonProperty("date_uploaded_unix")
     private Integer dateUploadedUnix;
     @JsonIgnore
+    @Transient
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     @JsonProperty("id")
@@ -382,10 +385,6 @@ public class Movie {
     @JsonAnySetter
     public void setAdditionalProperty(String name, Object value) {
         this.additionalProperties.put(name, value);
-    }
-
-    public void save(){
-        mr.save(this);
     }
 
 }

@@ -1,8 +1,15 @@
 
-package hello;
+package hello.beans;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
@@ -24,9 +31,11 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "date_uploaded",
     "date_uploaded_unix"
 })
+@Entity
 public class Torrent {
 
     @JsonProperty("url")
+    @Id
     private String url;
     @JsonProperty("hash")
     private String hash;
@@ -47,7 +56,12 @@ public class Torrent {
     @JsonProperty("date_uploaded_unix")
     private Integer dateUploadedUnix;
     @JsonIgnore
+    @Transient
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+
+    @ManyToOne(fetch=FetchType.EAGER)
+    @JoinColumn(name="MOVIE_ID")
+    private Movie movie;
 
     @JsonProperty("url")
     public String getUrl() {

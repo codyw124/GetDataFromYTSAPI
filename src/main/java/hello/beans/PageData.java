@@ -1,9 +1,12 @@
 
-package hello;
+package hello.beans;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.persistence.Transient;
+
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -21,14 +24,18 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 public class PageData {
 
     @JsonProperty("movie_count")
+    @Transient
     private Integer movieCount;
     @JsonProperty("limit")
+    @Transient
     private Integer limit;
     @JsonProperty("page_number")
+    @Transient
     private Integer pageNumber;
     @JsonProperty("movies")
     private List<Movie> movies = null;
     @JsonIgnore
+    @Transient
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     @JsonProperty("movie_count")

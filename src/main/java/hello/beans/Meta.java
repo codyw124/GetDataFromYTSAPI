@@ -1,5 +1,5 @@
 
-package hello;
+package hello.beans;
 
 import java.util.HashMap;
 import java.util.Map;
