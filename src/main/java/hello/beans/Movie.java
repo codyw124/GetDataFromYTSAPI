@@ -1,10 +1,12 @@
 
 package hello.beans;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -107,8 +109,8 @@ public class Movie {
     @JsonProperty("state")
     private String state;
     @JsonProperty("torrents")
-    @OneToMany(mappedBy="movie")
-    private List<Torrent> torrents = null;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy="movie",orphanRemoval = true)
+    private List<Torrent> torrents = new ArrayList<Torrent>();
     @JsonProperty("date_uploaded")
     private String dateUploaded;
     @JsonProperty("date_uploaded_unix")
@@ -357,6 +359,16 @@ public class Movie {
         this.torrents = torrents;
     }
 
+    public void addTorrent(Torrent torrent) {
+        torrents.add(torrent);
+        torrent.setMovie(this);
+    }
+ 
+    public void removeTorrent(Torrent torrent) {
+        torrents.remove(torrent);
+        torrent.setMovie(null);
+    }
+
     @JsonProperty("date_uploaded")
     public String getDateUploaded() {
         return dateUploaded;
@@ -386,5 +398,4 @@ public class Movie {
     public void setAdditionalProperty(String name, Object value) {
         this.additionalProperties.put(name, value);
     }
-
 }

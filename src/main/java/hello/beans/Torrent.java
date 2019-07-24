@@ -59,9 +59,18 @@ public class Torrent {
     @Transient
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
-    @ManyToOne(fetch=FetchType.EAGER)
-    @JoinColumn(name="MOVIE_ID")
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="movie_id")
     private Movie movie;
+
+    public Movie getMovie() {
+        return movie;
+    }
+
+    @JsonProperty("url")
+    public void setMovie(Movie movie) {
+        this.movie = movie;
+    }
 
     @JsonProperty("url")
     public String getUrl() {

@@ -12,8 +12,11 @@ import org.springframework.http.HttpMethod;
 import org.springframework.web.client.RestTemplate;
 
 import hello.beans.Movie;
+import hello.beans.PageData;
+import hello.beans.Torrent;
 import hello.beans.YTSResponse;
 import hello.repositories.MovieRepository;
+import hello.repositories.TorrentRepository;
 
 @SpringBootApplication
 public class Application {
@@ -25,20 +28,36 @@ public class Application {
 	}
 
 	@Bean
-	public CommandLineRunner demo(MovieRepository repository) {
+	public CommandLineRunner demo(MovieRepository mr, TorrentRepository tr) {
 		return (args) -> {
 
+            //headers
             HttpHeaders headers = new HttpHeaders();
             headers.set("User-agent", "SomeUserAgent");
             HttpEntity<String> entity = new HttpEntity<String>(headers);
-    
+            
+            int page = 0;
+            int moviesSaved = 0;
             RestTemplate rt = new RestTemplate();
-            YTSResponse result = rt.exchange("https://yts.lt/api/v2/list_movies.json", HttpMethod.GET, entity, YTSResponse.class).getBody();
-    
-            for(Movie x : result.getData().getMovies()){
-                repository.save(x);
-            }
-            log.info(result.toString());
+            PageData data = null;
+            do{
+                //make the api call
+                data = rt.exchange("https://yts.lt/api/v2/list_movies.json?limit=50&page=" + page, HttpMethod.GET, entity, YTSResponse.class).getBody().getData();
+                
+                if(data.getMovies() != null){
+                    //save data
+                    for(Movie x : data.getMovies()){
+                        for(Torrent y : x.getTorrents()){
+                            y.setMovie(x);
+                            tr.save(y);
+                        }
+                        mr.save(x);
+                        moviesSaved++;
+                        log.info(String.valueOf(moviesSaved));
+                    }
+                    page++;
+                }
+            }while(data.getMovies() != null);
 		};
 	}
 }
