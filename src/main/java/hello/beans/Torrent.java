@@ -67,7 +67,7 @@ public class Torrent {
         return movie;
     }
 
-    @JsonProperty("url")
+    // @JsonProperty("url")
     public void setMovie(Movie movie) {
         this.movie = movie;
     }
