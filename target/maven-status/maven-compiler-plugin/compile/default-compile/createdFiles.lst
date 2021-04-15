@@ -1,8 +1,8 @@
-hello\repositories\MovieRepository.class
-hello\beans\PageData.class
-hello\beans\Torrent.class
-hello\beans\Movie.class
-hello\repositories\TorrentRepository.class
-hello\Application.class
-hello\beans\YTSResponse.class
-hello\beans\Meta.class
+hello/repositories/TorrentRepository.class
+hello/beans/Torrent.class
+hello/beans/PageData.class
+hello/repositories/MovieRepository.class
+hello/beans/Meta.class
+hello/Application.class
+hello/beans/YTSResponse.class
+hello/beans/Movie.class

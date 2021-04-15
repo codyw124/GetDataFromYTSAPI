@@ -2,6 +2,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch DownloadStuff",
+            "request": "launch",
+            "mainClass": "hello.DownloadStuff",
+            "projectName": "get-data-from-yts-api"
+        },
+        {
+            "type": "java",
             "name": "CodeLens (Launch) - Application",
             "request": "launch",
             "mainClass": "hello.Application",

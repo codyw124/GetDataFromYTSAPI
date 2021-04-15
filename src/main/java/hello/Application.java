@@ -38,12 +38,14 @@ public class Application {
             
             int page = 0;
             int moviesSaved = 0;
+            int totalMovies = -1;
+            int totalPercentComplete = 0;
             RestTemplate rt = new RestTemplate();
             PageData data = null;
             do{
                 //make the api call
                 data = rt.exchange("https://yts.lt/api/v2/list_movies.json?limit=50&page=" + page, HttpMethod.GET, entity, YTSResponse.class).getBody().getData();
-                
+                totalMovies = data.getMovieCount();
                 if(data.getMovies() != null){
                     //save data
                     for(Movie x : data.getMovies()){
@@ -53,7 +55,11 @@ public class Application {
                         }
                         mr.save(x);
                         moviesSaved++;
-                        log.info(String.valueOf(moviesSaved));
+                        int newTotalPercentComplete = (moviesSaved / totalMovies) * 100;
+                        if(newTotalPercentComplete > totalPercentComplete){
+                            totalPercentComplete = newTotalPercentComplete;
+                            log.info(totalPercentComplete + " % done");
+                        }
                     }
                     page++;
                 }

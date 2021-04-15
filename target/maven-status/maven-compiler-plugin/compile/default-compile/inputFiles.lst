@@ -1,8 +1,8 @@
-C:\Users\lenovo\Documents\GitHub\GetDataFromYTSAPI\src\main\java\hello\beans\YTSResponse.java
-C:\Users\lenovo\Documents\GitHub\GetDataFromYTSAPI\src\main\java\hello\repositories\MovieRepository.java
-C:\Users\lenovo\Documents\GitHub\GetDataFromYTSAPI\src\main\java\hello\beans\PageData.java
-C:\Users\lenovo\Documents\GitHub\GetDataFromYTSAPI\src\main\java\hello\beans\Meta.java
-C:\Users\lenovo\Documents\GitHub\GetDataFromYTSAPI\src\main\java\hello\beans\Torrent.java
-C:\Users\lenovo\Documents\GitHub\GetDataFromYTSAPI\src\main\java\hello\Application.java
-C:\Users\lenovo\Documents\GitHub\GetDataFromYTSAPI\src\main\java\hello\beans\Movie.java
-C:\Users\lenovo\Documents\GitHub\GetDataFromYTSAPI\src\main\java\hello\repositories\TorrentRepository.java
+/home/plex/GetDataFromYTSAPI/src/main/java/hello/beans/Torrent.java
+/home/plex/GetDataFromYTSAPI/src/main/java/hello/beans/Meta.java
+/home/plex/GetDataFromYTSAPI/src/main/java/hello/beans/YTSResponse.java
+/home/plex/GetDataFromYTSAPI/src/main/java/hello/beans/Movie.java
+/home/plex/GetDataFromYTSAPI/src/main/java/hello/repositories/MovieRepository.java
+/home/plex/GetDataFromYTSAPI/src/main/java/hello/repositories/TorrentRepository.java
+/home/plex/GetDataFromYTSAPI/src/main/java/hello/Application.java
+/home/plex/GetDataFromYTSAPI/src/main/java/hello/beans/PageData.java
